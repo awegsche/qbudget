@@ -123,8 +123,7 @@ QVariant BillViewModel::data(const QModelIndex &index, int role) const
             }
             case BillNode::BILL_DEPTH: {
                 const auto *billnode = static_cast<const BillNode *>(node);
-                return billnode->bill->name() + ". "
-                       + QString::number(billnode->bill->sum(), 'f', 2) + " €";
+                return billnode->bill->name();
             }
             case TransactionNode::TRANSACTION_DEPTH: {
                 const auto *transnode = static_cast<const TransactionNode *>(node);
@@ -154,7 +153,7 @@ QVariant BillViewModel::data(const QModelIndex &index, int role) const
             }
             case TransactionNode::TRANSACTION_DEPTH: {
                 const auto *transnode = static_cast<const TransactionNode *>(node);
-                return QString::number(transnode->transaction->value());
+                return QString::number(transnode->transaction->value(), 'f', 2) + " €";
             }
             }
         }
