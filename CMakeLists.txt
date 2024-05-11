@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
         contentmanager.h contentmanager.cpp
         # utils
         utils.h utils.cpp
+        currency.h currency.cpp
+        money.h money.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

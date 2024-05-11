@@ -16,6 +16,7 @@ class NewBillDialog : public QDialog
 public:
     explicit NewBillDialog(QStringList const &names,
                            QStringList const &accounts,
+                           Settings const *settings,
                            QWidget *parent = nullptr);
     ~NewBillDialog();
 
@@ -33,6 +34,7 @@ private:
 
     Ui::NewBillDialog *ui;
     Bill bill;
+    Settings const *_settings;
 };
 
 #endif // NEWBILLDIALOG_H

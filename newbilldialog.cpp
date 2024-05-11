@@ -3,9 +3,13 @@
 
 #include <QCompleter>
 
-NewBillDialog::NewBillDialog(QStringList const &names, QStringList const &accounts, QWidget *parent)
+NewBillDialog::NewBillDialog(QStringList const &names,
+                             QStringList const &accounts,
+                             const Settings *settings,
+                             QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::NewBillDialog)
+    , _settings(settings)
 {
     ui->setupUi(this);
 
@@ -28,7 +32,7 @@ NewBillDialog::~NewBillDialog()
 void NewBillDialog::on_buttonAdd_clicked()
 {
     bill.insert_transaction(ui->editName->text(),
-                            ui->editValue->value());
+                            Money(ui->editValue->value(), "EUR")); // todo: add currency dropdown
 
     ui->editName->clear();
     ui->editName->setFocus();
@@ -44,7 +48,7 @@ void NewBillDialog::update_summary()
         summary += tr.toString() + "\n";
     }
 
-    summary += "sum: " + QString::number(bill.sum());
+    summary += "sum: " + QString::number(bill.eur_sum(_settings));
 
     ui->labelSummary->setText(summary);
 }

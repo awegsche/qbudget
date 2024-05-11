@@ -76,12 +76,14 @@ struct DayNode : public BillViewModelNode
     QList<BillNode *> bills;
     QDate date;
 
-    float sum() const
+    float eur_sum(Settings const *settings) const
     {
         return std::accumulate(bills.constBegin(),
                                bills.constEnd(),
                                0.0f,
-                               [](float sum, BillNode const *bn) { return sum + bn->bill->sum(); });
+                               [settings](float sum, BillNode const *bn) {
+                                   return sum + bn->bill->eur_sum(settings);
+                               });
     }
 
     constexpr static int DAY_DEPTH = 2;
@@ -118,12 +120,14 @@ struct MonthNode : public BillViewModelNode
     QDate date;
     QList<DayNode *> days;
 
-    float sum() const
+    float eur_sum(Settings const *settings) const
     {
         return std::accumulate(days.constBegin(),
                                days.constEnd(),
                                0.0f,
-                               [](float sum, const DayNode *dn) { return sum + dn->sum(); });
+                               [settings](float sum, const DayNode *dn) {
+                                   return sum + dn->eur_sum(settings);
+                               });
     }
 
     constexpr static int MONTH_DEPTH = 1;

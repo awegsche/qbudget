@@ -5,7 +5,11 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-Settings::Settings() {}
+Settings::Settings()
+{
+    _currencies.push_back(new Currency(1.0, "EUR", "€"));
+    _currencies.push_back(new Currency(1.02, "CHF", "CHF"));
+}
 
 void Settings::to_json(const QString &filename) const
 {

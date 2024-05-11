@@ -1,6 +1,7 @@
 #ifndef BILL_H
 #define BILL_H
 
+#include "settings.h"
 #include "transaction.h"
 
 #include <QJsonArray>
@@ -22,8 +23,7 @@ public:
     /*
      * Inserts new transaction
      */
-    void insert_transaction(QString const &name,
-                            float value)
+    void insert_transaction(QString const &name, Money const &value)
     {
         _transactions.emplaceBack(name, value);
     }
@@ -42,7 +42,7 @@ public:
     void set_date(QDate const &date) { _date = date; }
 
     // ---- properties ----------------------------------------------------------------------------
-    float sum() const
+    float eur_sum(Settings const *settings) const
     {
         if (_sum_element.has_value()) {
             return _sum_element.value();
@@ -51,7 +51,9 @@ public:
         return std::accumulate(_transactions.constBegin(),
                                _transactions.constEnd(),
                                0.0f,
-                               [](float sum, Transaction const &tr) { return sum + tr.value(); });
+                               [settings](float sum, Transaction const &tr) {
+                                   return sum + tr.eur_value(settings);
+                               });
     }
 
     QDate const &date() const { return _date; }

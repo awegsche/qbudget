@@ -141,19 +141,23 @@ QVariant BillViewModel::data(const QModelIndex &index, int role) const
             switch (node->depth()) {
             case MonthNode::MONTH_DEPTH: {
                 const auto *monthnode = static_cast<const MonthNode *>(node);
-                return QString::number(monthnode->sum(), 'f', 2) + " €";
+                return QString::number(monthnode->eur_sum(_manager->settings()), 'f', 2) + " €";
             }
             case DayNode::DAY_DEPTH: {
                 const auto *daynode = static_cast<const DayNode *>(node);
-                return QString::number(daynode->sum(), 'f', 2) + " €";
+                return QString::number(daynode->eur_sum(_manager->settings()), 'f', 2) + " €";
             }
             case BillNode::BILL_DEPTH: {
                 const auto *billnode = static_cast<const BillNode *>(node);
-                return QString::number(billnode->bill->sum(), 'f', 2) + " €";
+                return QString::number(billnode->bill->eur_sum(_manager->settings()), 'f', 2)
+                       + " €";
             }
             case TransactionNode::TRANSACTION_DEPTH: {
                 const auto *transnode = static_cast<const TransactionNode *>(node);
-                return QString::number(transnode->transaction->value(), 'f', 2) + " €";
+                return QString::number(transnode->transaction->eur_value(_manager->settings()),
+                                       'f',
+                                       2)
+                       + " €";
             }
             }
         }

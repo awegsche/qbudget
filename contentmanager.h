@@ -22,6 +22,8 @@ public:
     const Bill &bill(size_t idx) const { return _bills[idx]; }
     Bill &bill_mut(size_t idx) { return _bills[idx]; }
 
+    const Settings *settings() const { return &_settings; }
+
 private:
     // content
     QVector<Bill> _bills;

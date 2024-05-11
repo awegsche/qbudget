@@ -64,7 +64,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::on_actionNew_Bill_triggered()
 {
-    NewBillDialog dialog{_transaction_names, _account_names};
+    NewBillDialog dialog{_transaction_names, _account_names, _contentmanager->settings()};
 
     if (dialog.exec() == QDialog::Accepted) {
         const auto bill = dialog.get_bill();
@@ -90,15 +90,16 @@ QString MainWindow::display_month(int deltat_month) const
     const auto target_date = QDate::currentDate().addMonths(-deltat_month);
 
     size_t count = 0;
+    const auto *manager = _contentmanager.get();
     const auto *bills = _contentmanager->bills();
     const float sum = std::accumulate(bills->begin(),
                                       bills->end(),
                                       0.0f,
-                                      [target_date, &count](float s, const Bill &bill) {
+                                      [target_date, &count, manager](float s, const Bill &bill) {
                                           if (bill.date().month() == target_date.month()
                                               && bill.date().year() == target_date.year()) {
                                               ++count;
-                                              return s + bill.sum();
+                                              return s + bill.eur_sum(manager->settings());
                                           }
                                           return s;
                                       });
