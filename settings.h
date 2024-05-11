@@ -26,6 +26,15 @@ public:
     }
 
     Category const &category(int idx) const { return _categories[idx]; }
+    Category const &category(QString const &name) const
+    {
+        auto found = std::find_if(cCategoriesBegin(),
+                                  cCategoriesEnd(),
+                                  [&name](Category const &cat) { return cat.name() == name; });
+        if (found == cCategoriesEnd())
+            return _categories[0];
+        return *found;
+    }
 
     QList<Currency *>::ConstIterator cCurrenciesBegin() const { return _currencies.constBegin(); }
     QList<Currency *>::ConstIterator cCurrenciesEnd() const { return _currencies.constEnd(); }

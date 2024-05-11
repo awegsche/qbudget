@@ -95,7 +95,7 @@ int BillViewModel::rowCount(const QModelIndex &parent) const
 
 int BillViewModel::columnCount(const QModelIndex &parent) const
 {
-    return 2;
+    return 3;
 }
 
 QVariant BillViewModel::data(const QModelIndex &index, int role) const
@@ -119,7 +119,7 @@ QVariant BillViewModel::data(const QModelIndex &index, int role) const
             }
             case DayNode::DAY_DEPTH: {
                 const auto *daynode = static_cast<const DayNode *>(node);
-                return daynode->date.toString("dd.");
+                return daynode->date.toString("dd. MMM");
             }
             case BillNode::BILL_DEPTH: {
                 const auto *billnode = static_cast<const BillNode *>(node);
@@ -169,6 +169,31 @@ QVariant BillViewModel::data(const QModelIndex &index, int role) const
 
     default:
         return {};
+    }
+    case 2: {
+        switch (role) {
+        case Qt::DisplayRole: {
+            switch (node->depth()) {
+            case BillNode::BILL_DEPTH: {
+                const auto *billnode = static_cast<const BillNode *>(node);
+                auto const &c = billnode->bill->category();
+                return c.isEmpty() ? "ndef" : c;
+            }
+            }
+        }
+        case Qt::ForegroundRole: {
+            switch (node->depth()) {
+            case BillNode::BILL_DEPTH: {
+                const auto *billnode = static_cast<const BillNode *>(node);
+                const auto &c = billnode->bill->category();
+                if (c.isEmpty())
+                    return {};
+                const auto &cat = _manager->settings()->category(c);
+                return cat.color();
+            }
+            }
+        }
+        }
     }
 
         return {};

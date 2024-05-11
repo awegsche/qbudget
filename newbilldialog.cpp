@@ -87,6 +87,7 @@ void NewBillDialog::on_NewBillDialog_accepted()
     }
     bill.set_account(ui->editAccount->text());
     bill.set_date(ui->editDate->date());
+    bill.set_category(ui->comboCategory->currentText());
 }
 
 void NewBillDialog::on_comboCurrency_currentTextChanged(const QString &arg1)
