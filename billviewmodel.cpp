@@ -3,10 +3,13 @@
 BillViewModel::BillViewModel(ContentManager *manager)
     : _manager(manager)
     , _currency_font("Fira Code", 10)
+    , _bold_currency_font("Fira Code", 10, QFont::Bold)
+    , _tiny_currency_font("Fira Code", 8)
     , _font("Fira Sans", 9)
-    , _month_bgcolor(128, 128, 128)
-    , _day_bgcolor(192, 192, 192)
-    , _bill_bgcolor(216, 216, 216)
+    , _month_bgcolor(0, 0, 0)
+    , _day_bgcolor(0, 0, 0)
+    , _bill_bgcolor(128, 128, 128)
+    , _transaction_bgcolor(128, 128, 128)
 {
     int month_index = 0;
     for (int y = 2024; y < 2025; ++y) {
@@ -164,11 +167,26 @@ QVariant BillViewModel::data(const QModelIndex &index, int role) const
         case Qt::TextAlignmentRole:
             return Qt::AlignRight;
         case Qt::FontRole:
-            return _currency_font;
-        }
+            switch (node->depth()) {
+            case MonthNode::MONTH_DEPTH:
+                return _bold_currency_font;
+            case TransactionNode::TRANSACTION_DEPTH:
+                return _tiny_currency_font;
+            default:
+                return _currency_font;
+            }
 
-    default:
-        return {};
+        case Qt::ForegroundRole: {
+            switch (node->depth()) {
+            case TransactionNode::TRANSACTION_DEPTH:
+                return _transaction_bgcolor;
+            case BillNode::BILL_DEPTH:
+                return _bill_bgcolor;
+            case DayNode::DAY_DEPTH:
+                return _day_bgcolor;
+            }
+        }
+        }
     }
     case 2: {
         switch (role) {

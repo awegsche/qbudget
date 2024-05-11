@@ -160,10 +160,13 @@ private:
     ContentManager *_manager;
     QList<MonthNode *> _months;
     QFont _currency_font;
+    QFont _bold_currency_font;
+    QFont _tiny_currency_font;
     QFont _font;
     QColor _month_bgcolor;
     QColor _day_bgcolor;
     QColor _bill_bgcolor;
+    QColor _transaction_bgcolor;
 
     // QAbstractItemModel interface
 public:
