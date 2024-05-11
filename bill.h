@@ -38,6 +38,8 @@ public:
      */
     void unset_sum();
 
+    void set_name(QString const &name) { _name = name; }
+
     void set_account(QStringView account) { _account = account.toString(); }
     void set_date(QDate const &date) { _date = date; }
 

@@ -29,6 +29,8 @@ private slots:
 
     void on_NewBillDialog_accepted();
 
+    void on_comboCurrency_currentTextChanged(const QString &arg1);
+
 private:
     void update_summary();
 

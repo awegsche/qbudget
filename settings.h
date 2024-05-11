@@ -25,6 +25,9 @@ public:
         return _currencies[0]; // this should always be EUR
     }
 
+    QList<Currency *>::ConstIterator cCurrenciesBegin() const { return _currencies.constBegin(); }
+    QList<Currency *>::ConstIterator cCurrenciesEnd() const { return _currencies.constEnd(); }
+
 private:
     QList<Category> _categories;
     QList<Currency *> _currencies;

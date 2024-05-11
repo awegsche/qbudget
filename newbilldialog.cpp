@@ -1,4 +1,5 @@
 #include "newbilldialog.h"
+#include "currency.h"
 #include "ui_newbilldialog.h"
 
 #include <QCompleter>
@@ -22,6 +23,10 @@ NewBillDialog::NewBillDialog(QStringList const &names,
     ui->editAccount->setCompleter(acc_comp);
 
     ui->editDate->setDate(QDate::currentDate());
+
+    for (auto it = settings->cCurrenciesBegin(); it != settings->cCurrenciesEnd(); ++it) {
+        ui->comboCurrency->addItem((*it)->name());
+    }
 }
 
 NewBillDialog::~NewBillDialog()
@@ -32,7 +37,8 @@ NewBillDialog::~NewBillDialog()
 void NewBillDialog::on_buttonAdd_clicked()
 {
     bill.insert_transaction(ui->editName->text(),
-                            Money(ui->editValue->value(), "EUR")); // todo: add currency dropdown
+                            Money(ui->editValue->value(),
+                                  ui->comboCurrency->currentText())); // todo: add currency dropdown
 
     ui->editName->clear();
     ui->editName->setFocus();
@@ -65,6 +71,17 @@ void NewBillDialog::on_editSum_editingFinished()
 
 void NewBillDialog::on_NewBillDialog_accepted()
 {
+    if (!ui->editBillName->text().isEmpty()) {
+        bill.set_name(ui->editBillName->text());
+    }
     bill.set_account(ui->editAccount->text());
     bill.set_date(ui->editDate->date());
+}
+
+void NewBillDialog::on_comboCurrency_currentTextChanged(const QString &arg1)
+{
+    auto const *currency = _settings->currency(arg1);
+
+    ui->editSum->setSuffix(currency->symbol());
+    ui->editValue->setSuffix(currency->symbol());
 }
