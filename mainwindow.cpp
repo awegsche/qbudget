@@ -67,8 +67,10 @@ void MainWindow::on_actionNew_Bill_triggered()
     NewBillDialog dialog{_transaction_names, _account_names};
 
     if (dialog.exec() == QDialog::Accepted) {
-        _contentmanager->bills()->push_back(dialog.get_bill());
+        const auto bill = dialog.get_bill();
+        _contentmanager->bills_mut()->push_back(bill);
         update_display();
+        _billviewmodel->update_month(bill.date());
     }
 }
 
@@ -84,7 +86,7 @@ void MainWindow::update_display()
 
 QString MainWindow::display_month(int deltat_month) const
 {
-    const static float monthly_budget = 1700.0f;
+    const static float monthly_budget = 3400.0f;
     const auto target_date = QDate::currentDate().addMonths(-deltat_month);
 
     size_t count = 0;

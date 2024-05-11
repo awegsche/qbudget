@@ -39,7 +39,14 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QTreeView" name="tableBills"/>
+         <widget class="QTreeView" name="tableBills">
+          <property name="font">
+           <font>
+            <family>Fira Code</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

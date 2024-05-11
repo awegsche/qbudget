@@ -15,10 +15,12 @@ public:
     ContentManager(bool empty = false);
     ~ContentManager();
 
-    QVector<Bill> *bills() { return &_bills; }
+    QVector<Bill> *bills_mut() { return &_bills; }
+    QVector<Bill> const *bills() const { return &_bills; }
     SaveFile *save_file() { return &_save_file; }
 
-    const Bill &bill(size_t idx) { return _bills[idx]; }
+    const Bill &bill(size_t idx) const { return _bills[idx]; }
+    Bill &bill_mut(size_t idx) { return _bills[idx]; }
 
 private:
     // content
