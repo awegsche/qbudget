@@ -31,6 +31,12 @@ private slots:
 
     void on_comboCurrency_currentTextChanged(const QString &arg1);
 
+    void on_comboCategory_currentIndexChanged(int index);
+
+    void on_comboCategory_currentTextChanged(const QString &arg1);
+
+    void on_actionAccept_triggered();
+
 private:
     void update_summary();
 

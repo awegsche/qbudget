@@ -32,6 +32,10 @@ public:
         return {name, color};
     }
 
+    // ---- Properties ----------------------------------------------------------------------------
+    const QString &name() const { return _name; }
+    const QColor &color() const { return _color; }
+
 private:
     QString _name;
     QColor _color;

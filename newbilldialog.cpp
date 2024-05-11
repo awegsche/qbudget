@@ -3,6 +3,7 @@
 #include "ui_newbilldialog.h"
 
 #include <QCompleter>
+#include <QShortcut>
 
 NewBillDialog::NewBillDialog(QStringList const &names,
                              QStringList const &accounts,
@@ -27,6 +28,16 @@ NewBillDialog::NewBillDialog(QStringList const &names,
     for (auto it = settings->cCurrenciesBegin(); it != settings->cCurrenciesEnd(); ++it) {
         ui->comboCurrency->addItem((*it)->name());
     }
+
+    for (auto it = settings->cCategoriesBegin(); it != settings->cCategoriesEnd(); ++it) {
+        ui->comboCategory->addItem(it->name());
+        ui->comboCategory->setItemData(ui->comboCategory->count() - 1,
+                                       QBrush(it->color()),
+                                       Qt::ForegroundRole);
+    }
+
+    QShortcut *sc = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_J), this);
+    QObject::connect(sc, &QShortcut::activated, this, &NewBillDialog::accept);
 }
 
 NewBillDialog::~NewBillDialog()
@@ -84,4 +95,20 @@ void NewBillDialog::on_comboCurrency_currentTextChanged(const QString &arg1)
 
     ui->editSum->setSuffix(currency->symbol());
     ui->editValue->setSuffix(currency->symbol());
+}
+
+void NewBillDialog::on_comboCategory_currentIndexChanged(int index)
+{
+    const auto color = _settings->category(index).color();
+    QPalette pal = ui->comboCategory->palette();
+    pal.setColor(QPalette::Text, color);
+    ui->comboCategory->setPalette(pal);
+}
+
+void NewBillDialog::on_comboCategory_currentTextChanged(const QString &arg1) {}
+
+void NewBillDialog::on_actionAccept_triggered()
+{
+    ui->labelSummary->setText("fsejjjjjjjjjjjjjjjjjjjjjjj");
+    emit accepted();
 }

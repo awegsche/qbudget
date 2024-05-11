@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>479</width>
-    <height>355</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,16 @@
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Date</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="comboCurrency"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Name</string>
         </property>
        </widget>
       </item>
@@ -57,22 +67,22 @@
       <item row="1" column="0">
        <widget class="QLineEdit" name="editBillName"/>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Name</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="comboCurrency"/>
-      </item>
       <item row="0" column="1">
        <widget class="QLabel" name="label_7">
         <property name="text">
          <string>Currency</string>
         </property>
        </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Category</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QComboBox" name="comboCategory"/>
       </item>
      </layout>
     </widget>
@@ -160,12 +170,15 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>editBillName</tabstop>
   <tabstop>editDate</tabstop>
   <tabstop>editAccount</tabstop>
   <tabstop>editSum</tabstop>
+  <tabstop>comboCategory</tabstop>
   <tabstop>editName</tabstop>
   <tabstop>editValue</tabstop>
   <tabstop>buttonAdd</tabstop>
+  <tabstop>comboCurrency</tabstop>
  </tabstops>
  <resources/>
  <connections>
