@@ -12,26 +12,32 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Test PrintSupport)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Test PrintSupport)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ui
+    bills
+    utils
+    viewmodels
+)
 
 set(PROJECT_SOURCES
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        # core
-        transaction.h transaction.cpp
-        bill.h bill.cpp
-        newbilldialog.h newbilldialog.cpp newbilldialog.ui
-        savefile.h savefile.cpp
-        qcustomplot-source/qcustomplot.h qcustomplot-source/qcustomplot.cpp
-        settings.h settings.cpp
-        category.h category.cpp
-        billviewmodel.h billviewmodel.cpp
-        contentmanager.h contentmanager.cpp
+        # ui
+        ui/mainwindow.cpp ui/mainwindow.h ui/mainwindow.ui
+        ui/newbilldialog.h ui/newbilldialog.cpp ui/newbilldialog.ui
+        # bills
+        bills/transaction.h bills/transaction.cpp
+        bills/bill.h bills/bill.cpp
+        bills/currency.h bills/currency.cpp
+        bills/money.h bills/money.cpp
+        bills/category.h bills/category.cpp
+        viewmodels/billviewmodel.h viewmodels/billviewmodel.cpp
         # utils
-        utils.h utils.cpp
-        currency.h currency.cpp
-        money.h money.cpp
+        utils/contentmanager.h utils/contentmanager.cpp
+        utils/settings.h utils/settings.cpp
+        utils/savefile.h utils/savefile.cpp
+        utils/utils.h utils/utils.cpp
+        # ext
+        qcustomplot-source/qcustomplot.h qcustomplot-source/qcustomplot.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
