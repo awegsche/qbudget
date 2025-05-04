@@ -12,8 +12,9 @@ BillViewModel::BillViewModel(ContentManager *manager)
     , _transaction_bgcolor(128, 128, 128)
 {
     int month_index = 0;
-    for (int y = 2024; y < 2025; ++y) {
-        for (int m = 1; m <= 5; ++m) {
+    const int this_year = QDate::currentDate().year();
+    for (int y = this_year; y < this_year + 1; ++y) {
+        for (int m = 1; m <= 12; ++m) {
             _months.push_back(new MonthNode(month_index, QDate(y, m, 1), _manager));
             ++month_index;
         }

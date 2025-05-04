@@ -35,6 +35,7 @@ public:
     {
         QVector<Bill> bills;
 
+        qDebug() << "loading bills from " << _filename;
         QFile file{_filename};
         if (!file.open(QIODevice::ReadOnly)) {
             return bills;

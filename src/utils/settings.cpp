@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "utils.h"
 
 #include <QFile>
 #include <QJsonArray>
@@ -27,6 +28,8 @@ void Settings::to_json(const QString &filename) const
     }
     ob["categories"] = categories;
 
+    ob["data_dir"] = _data_dir.absolutePath();
+
     settings_file.write(QJsonDocument(ob).toJson());
 }
 
@@ -47,6 +50,12 @@ Settings Settings::from_json(const QString &filename)
         for (const auto &c : arr) {
             s._categories.push_back(Category::from_json(c.toObject()));
         }
+    }
+
+    if (ob.contains("data_dir")) {
+        s._data_dir = QDir(ob["data_dir"].toString());
+    } else {
+        s._data_dir = check_and_setup_application_data();
     }
 
     return s;

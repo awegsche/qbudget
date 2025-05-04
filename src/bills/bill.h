@@ -54,10 +54,13 @@ public:
 
     QString const &name() const
     {
-        if (_name)
-            return _name.value();
+        if (!_name.isEmpty())
+            return _name;
 
-        return _transactions[0].name();
+        if (_transactions.size() > 0)
+            return _transactions[0].name();
+
+        return _name;
     }
 
     QString const &category() const { return _category; }
@@ -79,7 +82,7 @@ public:
     void set_category(QString const &category) { _category = category; }
 
 private:
-    std::optional<QString> _name = {};
+    QString _name = "";
     QVector<Transaction> _transactions = {};
     QString _category = "";
     QString _account = "";

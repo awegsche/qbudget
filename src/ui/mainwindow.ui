@@ -29,7 +29,14 @@
          <widget class="QTextBrowser" name="display"/>
         </item>
         <item>
-         <widget class="QCustomPlot" name="plotPanel" native="true"/>
+         <widget class="QCustomPlot" name="plotPanel" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -72,7 +79,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

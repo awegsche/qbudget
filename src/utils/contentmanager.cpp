@@ -8,6 +8,9 @@ ContentManager::ContentManager(bool empty)
 
     _bdir = check_and_setup_application_data();
     _settings = Settings::from_json(_bdir.absoluteFilePath(FN_SETTINGS));
+
+    _save_file = SaveFile(_settings.data_dir().absoluteFilePath("budget.json"));
+
     _bills = _save_file.load_bills();
 }
 

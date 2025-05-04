@@ -43,6 +43,8 @@ QJsonObject Bill::to_json() const
 {
     QJsonObject ob;
 
+    ob["name"] = _name;
+
     QJsonArray transactions;
 
     for (auto const &tr : *this) {
@@ -74,6 +76,9 @@ QJsonObject Bill::to_json() const
 Bill Bill::from_json(const QJsonObject &ob)
 {
     Bill b;
+    if (ob.contains("name")) {
+        b._name = ob["name"].toString();
+    }
     if (ob.contains("sum")) {
         b._sum_element = ob["sum"].toDouble();
     }

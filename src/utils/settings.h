@@ -4,6 +4,7 @@
 #include <QList>
 #include "category.h"
 #include "currency.h"
+#include <qdir.h>
 
 class Settings
 {
@@ -26,6 +27,7 @@ public:
     }
 
     Category const &category(int idx) const { return _categories[idx]; }
+    QDir const &data_dir() const { return _data_dir; }
     Category const &category(QString const &name) const
     {
         auto found = std::find_if(cCategoriesBegin(),
@@ -45,6 +47,7 @@ public:
 private:
     QList<Category> _categories;
     QList<Currency *> _currencies;
+    QDir _data_dir;
 };
 
 #endif // SETTINGS_H
